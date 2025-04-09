@@ -5,10 +5,9 @@ import com.ces3.proyectoces.model.Curso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CursoDAO {
+public class CursoService {
     private List<Curso> cursos = new ArrayList<>();
-    private int currentId = 1;
-
+    
     public List<Curso> listarCursos() {
         return cursos;
     }
