@@ -8,7 +8,6 @@ Variante A: Gestión de Cursos
 ### POST /cursos
 Registra un nuevo curso. Requiere JSON en el cuerpo de la petición.
 
-
 ### GET /curso
 Retorna todos los cursos registrados.
 
@@ -18,7 +17,7 @@ Retorna los cursos filtrados por la facultad indicada.
 ## Cómo probar
 Puedes usar Postman o URL con los siguientes ejemplos:
 
-- `GET [http://localhost:8080/PlatonApi/cursos](http://localhost:8081/eventosDeportivos_war_exploded/equipos)`
+- `GET http://localhost:8081/eventosDeportivos_war_exploded/equipos`
 ```json
 [
     {
@@ -32,7 +31,7 @@ Puedes usar Postman o URL con los siguientes ejemplos:
     }
 ]
 ```
-- `POST [http://localhost:8080/PlatonApi/cursos](http://localhost:8081/eventosDeportivos_war_exploded/equipos)`
+- `POST http://localhost:8081/eventosDeportivos_war_exploded/equipos`
 ```json
 {
   "nombre": "CES3",
@@ -42,6 +41,19 @@ Puedes usar Postman o URL con los siguientes ejemplos:
   "estudiantesInscritos": 5,
   "facultad": "Ingeniería"
 }
+```
+
+- `POST http://localhost:8081/eventosDeportivos_war_exploded/equipos`
+```json
+{
+  "nombre": "CES3",
+  "profesor": "",
+  "cupoMaximo": 15,
+  "estudiantesInscritos": 5,
+}
+```
+```json
+{"error": "JSON malformado"}
 ```
 
 - `GET  http://localhost:8081/ProyectoCES_war_exploded/curso/facultad?nombre=Ingeniería`
@@ -57,4 +69,11 @@ Puedes usar Postman o URL con los siguientes ejemplos:
         "facultad": "Ingeniería"
     }
 ]
+```
+
+- `GET http://localhost:8081/ProyectoCES_war_exploded/curso/facultad?nombre=Ingeniería`
+```json
+{
+    "mensaje": "No se encontraron cursos para la facultad: Artes"
+}
 ```
