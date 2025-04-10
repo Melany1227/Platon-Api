@@ -13,7 +13,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "curso", urlPatterns = "/curso")
+@WebServlet(name = "curso", urlPatterns = "/curso/*")
 public class CursoServlet extends HttpServlet {
     private CursoService servicio = new CursoService();
 
@@ -57,5 +57,59 @@ public class CursoServlet extends HttpServlet {
         }
     }
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        resp.setContentType("application/json");
+
+        String pathInfo = req.getPathInfo();
+        if (pathInfo == null || pathInfo.equals("/")) {
+            List<Curso> lista = servicio.listarCursos();
+            JSONArray jsonArray = new JSONArray();
+            for (Curso curso : lista) {
+                JSONObject obj = new JSONObject();
+                obj.put("id", curso.getId());
+                obj.put("nombre", curso.getNombre());
+                obj.put("codigo", curso.getCodigo());
+                obj.put("profesor", curso.getProfesor());
+                obj.put("cupoMaximo", curso.getCupoMaximo());
+                obj.put("estudiantesInscritos", curso.getEstudiantesInscritos());
+                obj.put("facultad", curso.getFacultad());
+                jsonArray.put(obj);
+            }
+            resp.getWriter().write(jsonArray.toString());
+        } else if (pathInfo.startsWith("/facultad")) {
+            String facultad = req.getParameter("nombre");
+            if (facultad != null) {
+                List<Curso> lista = servicio.buscarPorFacultad(facultad);
+                if (lista.isEmpty()) {
+                    resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                    JSONObject respuesta = new JSONObject();
+                    respuesta.put("mensaje", "No se encontraron cursos para la facultad: " + facultad);
+                    resp.getWriter().write(respuesta.toString());
+                    return;
+                }
+
+                JSONArray jsonArray = new JSONArray();
+                for (Curso curso : lista) {
+                    JSONObject obj = new JSONObject();
+                    obj.put("id", curso.getId());
+                    obj.put("nombre", curso.getNombre());
+                    obj.put("codigo", curso.getCodigo());
+                    obj.put("profesor", curso.getProfesor());
+                    obj.put("cupoMaximo", curso.getCupoMaximo());
+                    obj.put("estudiantesInscritos", curso.getEstudiantesInscritos());
+                    obj.put("facultad", curso.getFacultad());
+                    jsonArray.put(obj);
+                }
+                resp.getWriter().write(jsonArray.toString());
+            } else {
+                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                resp.getWriter().write("{\"error\": \"Debe proporcionar el parámetro 'nombre'\"}");
+            }
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            resp.getWriter().write("{\"error\": \"Ruta no válida\"}");
+        }
+    }
 
 }
