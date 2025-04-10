@@ -104,3 +104,11 @@ Puedes usar Postman o URL con los siguientes ejemplos:
     "mensaje": "No se encontraron cursos para la facultad: Artes"
 }
 ```
+
+
+- `GET http://localhost:8081/ProyectoCES_war_exploded/curso/facultad`
+```json
+{
+    "error": "Debe proporcionar el parámetro 'nombre'"
+}
+```
