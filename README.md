@@ -22,12 +22,30 @@ Puedes usar Postman o URL con los siguientes ejemplos:
 [
     {
         "cupoMaximo": 15,
-        "codigo": "JAVA002",
+        "codigo": "JAVA001",
         "profesor": "Oscar Mesa",
         "id": 1,
         "estudiantesInscritos": 5,
         "nombre": "CES3",
         "facultad": "Ingeniería"
+    },
+    {
+        "cupoMaximo": 30,
+        "codigo": "JAVA002",
+        "profesor": "John Faber",
+        "id": 2,
+        "estudiantesInscritos": 5,
+        "nombre": "DPML",
+        "facultad": "Ingeniería"
+    },
+    {
+        "cupoMaximo": 10,
+        "codigo": "ART1",
+        "profesor": "Melany Suarez",
+        "id": 3,
+        "estudiantesInscritos": 3,
+        "nombre": "Salsa básico",
+        "facultad": "Artes"
     }
 ]
 ```
@@ -53,7 +71,7 @@ Puedes usar Postman o URL con los siguientes ejemplos:
 }
 ```
 ```json
-{"error": "JSON malformado"}
+{"error": "JSON mal formado"}
 ```
 
 - `GET  http://localhost:8081/ProyectoCES_war_exploded/curso/facultad?nombre=Ingeniería`
@@ -61,11 +79,20 @@ Puedes usar Postman o URL con los siguientes ejemplos:
 [
     {
         "cupoMaximo": 15,
-        "codigo": "JAVA002",
+        "codigo": "JAVA001",
         "profesor": "Oscar Mesa",
         "id": 1,
         "estudiantesInscritos": 5,
         "nombre": "CES3",
+        "facultad": "Ingeniería"
+    },
+    {
+        "cupoMaximo": 30,
+        "codigo": "JAVA002",
+        "profesor": "John Faber",
+        "id": 2,
+        "estudiantesInscritos": 5,
+        "nombre": "DPML",
         "facultad": "Ingeniería"
     }
 ]
